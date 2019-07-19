@@ -1,0 +1,40 @@
+---
+title: Assignment 2 for Developing Data Products course
+date: 20 July, 2019
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## 3D scatterplot of tree diameter, height and volume
+
+This chart shows the relationship between tree height (in feet), diameter (in inches) and volume of timber (in cubic feet) for 31 felled black cherry trees.
+
+Data is sourced from the [trees dataset](https://stat.ethz.ch/R-manual/R-patched/library/datasets/html/trees.html).
+
+```{r load_packages, warning = FALSE, message = FALSE}
+
+library(plotly)
+library(dplyr)
+
+```
+
+``` {r tidy_data}
+
+# Rename columns to make them appropriate for axis labels 
+## (I cannot figure out how to do this directly with plotly so am just changing the column names instead as a nasty hack)
+
+trees2 <- trees %>%
+          rename(Diameter = Girth)
+
+```
+
+```{r trees_scatterplot}
+#Create plot
+plot_ly(trees2, x = ~Diameter, y = ~Height, z = ~Volume, type = "scatter3d", 
+        mode="markers" , marker=list(color="green" , size=10 , opacity=0.5)  
+        )
+```
+
